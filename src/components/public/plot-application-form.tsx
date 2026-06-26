@@ -54,7 +54,7 @@ export function PlotApplicationForm({
     formData.set("plotNumber", plotNumber ?? "");
     formData.set("projectName", projectName ?? "");
 
-    const result = await submitPlotApplication(null, formData);
+    const result = await submitPlotApplication({ success: false }, formData);
     if (result.success) {
       setSubmitted(true);
     } else {
