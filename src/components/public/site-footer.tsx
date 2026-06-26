@@ -67,7 +67,7 @@ export async function SiteFooter() {
 
         <div className="mt-10 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} {companyName}. All rights reserved.</p>
-          <p className="text-xs opacity-50">Powered by REOS</p>
+          <a href="https://reos-two.vercel.app" target="_blank" rel="noopener noreferrer" className="text-xs opacity-50 hover:opacity-80 transition-opacity">Powered by REOS</a>
         </div>
       </div>
     </footer>
