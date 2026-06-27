@@ -1,4 +1,4 @@
-import { createAdminClient } from "./admin";
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { Project, Property, Settings } from "@/types/database";
 
 const TENANT_ID = process.env.TENANT_ID;

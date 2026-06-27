@@ -10,7 +10,62 @@ export type ActivityType = "call" | "site_visit" | "note" | "whatsapp" | "email"
 export type BookingStatus = "pending" | "confirmed" | "cancelled" | "registered";
 export type PaymentMode = "cash" | "cheque" | "bank_transfer" | "upi" | "demand_draft";
 export type PaymentStatus = "pending" | "received" | "bounced" | "refunded";
-export type DocumentType = "sale_deed" | "dtcp_approval" | "rera_certificate" | "layout_plan" | "brochure" | "kyc" | "agreement" | "receipt" | "other";
+export type DocumentType =
+  // Project — Land & Title
+  | "title_deed"
+  | "encumbrance_certificate"
+  | "revenue_record"
+  | "land_conversion_order"
+  // Project — Planning & Approvals
+  | "layout_approval"
+  | "building_plan_sanction"
+  | "commencement_certificate"
+  | "rera_certificate"
+  | "environmental_clearance"
+  | "fire_noc"
+  | "noc_other"
+  | "development_agreement"
+  // Property-level
+  | "plot_demarcation"
+  | "floor_plan"
+  | "allotment_letter"
+  | "property_tax_receipt"
+  // Buyer KYC
+  | "kyc_aadhaar"
+  | "kyc_pan"
+  | "kyc_address_proof"
+  | "kyc_photo"
+  | "kyc_income_proof"
+  | "power_of_attorney"
+  // Transaction
+  | "booking_form"
+  | "cost_sheet"
+  | "agreement_of_sale"
+  | "sale_deed"
+  | "stamp_duty_receipt"
+  | "registration_receipt"
+  | "tds_form_26qb"
+  | "tds_certificate_16b"
+  | "payment_receipt"
+  | "demand_letter"
+  | "possession_letter"
+  // Compliance
+  | "rera_quarterly_update"
+  | "escrow_statement"
+  | "completion_certificate"
+  | "occupancy_certificate"
+  // Marketing
+  | "brochure"
+  | "layout_plan"
+  | "price_sheet"
+  // Legacy / catch-all
+  | "dtcp_approval"
+  | "kyc"
+  | "agreement"
+  | "receipt"
+  | "other";
+
+export type DocumentVerificationStatus = "pending" | "verified" | "rejected" | "expired";
 export type UserRole = "admin" | "agent" | "viewer" | "superadmin";
 export type TenantStatus = "active" | "suspended" | "cancelled";
 export type LayoutType = "plot" | "apartment";
@@ -202,7 +257,12 @@ export interface Document {
   property_id: string | null;
   project_id: string | null;
   lead_id: string | null;
+  booking_id: string | null;
   uploaded_by: string;
+  verification_status: DocumentVerificationStatus;
+  expiry_date: string | null;
+  is_mandatory: boolean;
+  notes: string | null;
   created_at: string;
 }
 
@@ -230,6 +290,19 @@ export interface Settings {
   primary_color: string;
   currency_symbol: string;
   tds_percentage: number;
+  auto_assign_leads?: boolean;
   created_at: string;
   updated_at: string;
+}
+
+export type NotificationType = "overdue_followup" | "stale_lead" | "unassigned_lead" | "overdue_payment";
+
+export interface DashboardNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  description: string;
+  href: string;
+  priority: "high" | "medium" | "low";
+  created_at: string;
 }

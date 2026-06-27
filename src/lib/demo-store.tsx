@@ -596,8 +596,13 @@ export function addDocument(data: {
     property_id: data.property_id || null,
     project_id: data.project_id || null,
     lead_id: data.lead_id || null,
+    booking_id: null,
     uploaded_by: "u1",
     created_at: now,
+    verification_status: "pending",
+    expiry_date: null,
+    is_mandatory: false,
+    notes: null,
   };
   store.documents = [doc, ...store.documents];
   emitChange();
